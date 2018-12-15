@@ -81,6 +81,8 @@ describe('XUnit reporter', function() {
 
   describe("on 'pending', 'pass' and 'fail' events", function() {
     it("should add test to tests called on 'end' event", function() {
+      console.log = function() {}; // to test
+
       var pendingTest = {
         name: 'pending',
         slow: function() {}
