@@ -173,7 +173,7 @@ describe('XUnit reporter', function() {
         expect(expectedWrite, 'to be', expectedLine + '\n');
       });
     });
-    describe('if fileStream is falsy and stdout exists', function() {
+    describe('if fileStream is falsy', function() {
       it('should call write with line and new line', function() {
         stdoutWrite = process.stdout.write;
         process.stdout.write = function(string) {
@@ -186,23 +186,6 @@ describe('XUnit reporter', function() {
         process.stdout.write = stdoutWrite;
 
         expect(stdout[0], 'to be', expectedLine + '\n');
-      });
-    });
-    describe('if fileStream is falsy and stdout does not exist', function() {
-      it('should call write with line', function() {
-        stdoutWrite = process;
-        process = false; // eslint-disable-line no-native-reassign, no-global-assign
-        var cachedConsoleLog = console.log;
-        console.log = function(string) {
-          stdout.push(string);
-        };
-
-        var xunit = new XUnit({on: function() {}, once: function() {}});
-        xunit.write.call({fileStream: false}, expectedLine);
-
-        console.log = cachedConsoleLog;
-        process = stdoutWrite; // eslint-disable-line no-native-reassign, no-global-assign
-        expect(stdout[0], 'to be', expectedLine);
       });
     });
   });
